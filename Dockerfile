@@ -1,6 +1,8 @@
 FROM ubuntu:latest AS build
-RUN DEBIAN_FRONTEND=noninteractive apt install -y tzdata
-ARG XMRIG_VERSION='v5.11.0'
+
+ARG XMRIG_VERSION='v5.11.2'
+
+ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update && apt-get install -y git build-essential cmake libuv1-dev libssl-dev libhwloc-dev
 WORKDIR /root
@@ -12,7 +14,7 @@ RUN git apply build.patch
 RUN mkdir build && cd build && cmake .. -DOPENSSL_USE_STATIC_LIBS=TRUE && make
 
 FROM ubuntu:latest
-RUN apt-get update && apt-get install -y libhwloc5
+RUN apt-get update && apt-get install -y libhwloc15
 RUN useradd -ms /bin/bash monero
 USER monero
 WORKDIR /home/monero
